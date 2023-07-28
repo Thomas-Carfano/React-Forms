@@ -6,23 +6,21 @@ const Authenticate = ({token}) => {
 
 
     const handleClick = async () => {
-        try{
+      
         const response = await fetch ("https://fsa-jwt-practice.herokuapp.com/authenticate",  {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`,
-}   
-})      
+    }})      
         const data = await response.json();
         if(data.success === true){
-        setSuccessMessage(data.message)
-        console.log('yes')
-        } 
-
-        } catch (error) {
-            setError(error.message)
+        setSuccessMessage(`Welcome ${data.data.username} ${data.message}`)
+        console.log(data)
+        } else {
+            setError(`Please Submit a valid username/password. Error Message: ${data.message}`)
         }
+       
     }
     return(
         <>
